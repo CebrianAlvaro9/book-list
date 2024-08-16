@@ -4,6 +4,7 @@ import { Book, Genre } from "../types/book";
 export const getBooksHook = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [genres, setGenres] = useState<Genre[]>([]);
+  const [wishList, setWishList] = useState<Book[]>([]);
 
   const getBooks = async () => {
     try {
@@ -29,7 +30,11 @@ export const getBooksHook = () => {
 
   useEffect(() => {
     getBooks();
+    const wishListStoraged = sessionStorage.getItem("wishList");
+    if (wishListStoraged) {
+      setWishList(JSON.parse(wishListStoraged));
+    }
   }, []);
 
-  return { books, genres };
+  return { books, genres, wishList, setWishList };
 };

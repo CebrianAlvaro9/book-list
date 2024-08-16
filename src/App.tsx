@@ -1,15 +1,14 @@
 import "./App.css";
 import { BookList } from "./components/BookList";
 import { Filters } from "./components/Filters";
-import { getBooksHook } from "./hooks/getBooksHook";
+import { getBooksHook } from "./hooks/getBooksAndWishesHook";
 import { filterBookHook } from "./hooks/filterBooksHook";
 import { filterBooksByPageRangeHook } from "./hooks/filterBooksByPageRangeHook";
 import { filterBooksByTitleHook } from "./hooks/filterBooksByTitleHook";
 import { WishList } from "./components/WishList";
-import { setWishListWithSessionHook } from "./hooks/setWishListWithSessionHook";
 
 function App() {
-  const { books, genres } = getBooksHook();
+  const { books, genres, wishList, setWishList } = getBooksHook();
   const { filteredBooks, setSelectedGenre, maxPages, minPages } =
     filterBookHook(books);
 
@@ -19,8 +18,6 @@ function App() {
   const { filteredBooksByTitle, setSearchInput } = filterBooksByTitleHook(
     filteredBookByPageRange
   );
-
-  const { wishList, setWishList } = setWishListWithSessionHook();
 
   return (
     <>
